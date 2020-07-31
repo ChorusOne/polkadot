@@ -19,5 +19,6 @@
 #![warn(missing_docs)]
 
 fn main() -> cli::Result<()> {
+	println!("Who's this?");
 	cli::run()
 }
