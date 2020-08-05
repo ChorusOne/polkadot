@@ -840,8 +840,8 @@ pub fn polkadot_testnet_genesis(
 ) -> polkadot::GenesisConfig {
 	let endowed_accounts: Vec<AccountId> = endowed_accounts.unwrap_or_else(testnet_accounts);
 
-	const ENDOWMENT: u128 = 1_000_000 * DOTS;
-	const STASH: u128 = 100 * DOTS;
+	const ENDOWMENT: u128 = 100_000_000 * DOTS;
+	const STASH: u128 = 10_000 * DOTS;
 
 	polkadot::GenesisConfig {
 		frame_system: Some(polkadot::SystemConfig {
@@ -862,15 +862,15 @@ pub fn polkadot_testnet_genesis(
 				  )).collect::<Vec<_>>(),
 		}),
 		pallet_staking: Some(polkadot::StakingConfig {
-			minimum_validator_count: 1,
-			validator_count: 2,
+			minimum_validator_count: 2,
+			validator_count: 4,
 			stakers: initial_authorities.iter()
 				.map(|x| (x.0.clone(), x.1.clone(), STASH, polkadot::StakerStatus::Validator))
 				.collect(),
-				invulnerables: initial_authorities.iter().map(|x| x.0.clone()).collect(),
-				force_era: Forcing::NotForcing,
-				slash_reward_fraction: Perbill::from_percent(10),
-				.. Default::default()
+			invulnerables: initial_authorities.iter().map(|x| x.0.clone()).collect(),
+			force_era: Forcing::NotForcing,
+			slash_reward_fraction: Perbill::from_percent(10),
+			.. Default::default()
 		}),
 		pallet_elections_phragmen: Some(Default::default()),
 		pallet_democracy: Some(polkadot::DemocracyConfig::default()),
@@ -1185,6 +1185,8 @@ fn polkadot_local_testnet_genesis(wasm_binary: &[u8]) -> polkadot::GenesisConfig
 		vec![
 			get_authority_keys_from_seed("Alice"),
 			get_authority_keys_from_seed("Bob"),
+			get_authority_keys_from_seed("Charlie"),
+			get_authority_keys_from_seed("Dave"),
 		],
 		get_account_id_from_seed::<sr25519::Public>("Alice"),
 		None,

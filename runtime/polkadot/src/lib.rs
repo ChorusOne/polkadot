@@ -325,11 +325,11 @@ pallet_staking_reward_curve::build! {
 }
 
 parameter_types! {
-	// Six sessions in an era (24 hours).
-	pub const SessionsPerEra: SessionIndex = 6;
+	// Two sessions in an era (24 hours).
+	pub const SessionsPerEra: SessionIndex = 2;
 	// 28 eras for unbonding (28 days).
-	pub const BondingDuration: pallet_staking::EraIndex = 28;
-	pub const SlashDeferDuration: pallet_staking::EraIndex = 27;
+	pub const BondingDuration: pallet_staking::EraIndex = 4;
+	pub const SlashDeferDuration: pallet_staking::EraIndex = 4;
 	pub const RewardCurve: &'static PiecewiseLinear<'static> = &REWARD_CURVE;
 	pub const MaxNominatorRewardedPerValidator: u32 = 64;
 	// last 15 minutes of the last session will be for election.
